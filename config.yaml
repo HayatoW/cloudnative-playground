@@ -1,0 +1,51 @@
+# https://kind.sigs.k8s.io/docs/user/configuration/#getting-started
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+
+nodes:
+# コントロールプレーン 1 台
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  # Nginx Ingress のポートマッピング
+  - containerPort: 30080
+    hostPort: 80
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+  - containerPort: 30443
+    hostPort: 443
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+  # Cilium Ingress のポートマッピング
+  - containerPort: 31080
+    hostPort: 8080
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+  - containerPort: 31443
+    hostPort: 8443
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+  # Istio Ingress のポートマッピング
+  - containerPort: 32080
+    hostPort: 18080
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+  - containerPort: 32443
+    hostPort: 18443
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+
+# ワーカーノード 2 台
+- role: worker
+- role: worker
+
+networking:
+  # Cilium を CNI として利用するため、既定の CNI を無効化
+  disableDefaultCNI: true
+  # Cilium を kube-proxy の代替として利用するため、 kube-proxy を無効化
+  kubeProxyMode: none
