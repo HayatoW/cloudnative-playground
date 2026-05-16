@@ -38,3 +38,21 @@ sha256sum --check cilium-${GOOS}-${GOARCH}.tar.gz.sha256sum
 sudo tar -C /usr/local/bin -xzvf cilium-${GOOS}-${GOARCH}.tar.gz
 rm cilium-${GOOS}-${GOARCH}.tar.gz{,.sha256sum}
 ```
+
+### Helm のインストール
+
+https://helm.sh/docs/intro/install/#from-homebrew-macos
+
+```zsh
+brew install helm
+```
+
+### Helmfile のインストール
+
+Helmfile は Helm チャートをデプロイするための宣言的スペックらしい。。。
+
+https://helmfile.readthedocs.io/en/latest/#step-1-install-helmfile
+
+```zsh
+brew install helmfile
+```
