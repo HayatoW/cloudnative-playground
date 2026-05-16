@@ -7,15 +7,12 @@ rollOutCiliumPods: true
 # see: https://docs.cilium.io/en/latest/observability/visibility/#layer-7-protocol-visibility
 gatewayAPI:
   enabled: true
+  # Gateway API のリスナーをノード上で直接待ち受ける
+  # (kind 上の外部公開は config.yaml の extraPortMappings と組み合わせる)
+  hostNetwork:
+    enabled: true
 ingressController:
-  enabled: true
-  default: false
-  enforceHttps: false
-  loadbalancerMode: shared
-  service:
-    type: NodePort
-    insecureNodePort: 31080
-    secureNodePort: 31443
+  enabled: false
 operator:
   # ensure pods roll when configmap updates
   rollOutPods: true

@@ -6,12 +6,12 @@ nodes:
   # コントロールプレーン 1 台
   - role: control-plane
     extraPortMappings:
-    # Cilium Ingress のポートマッピング
-    - containerPort: 31080
+    # Cilium Gateway API のポートマッピング
+    - containerPort: 80
       hostPort: 8080
       listenAddress: "0.0.0.0"
       protocol: TCP
-    - containerPort: 31443
+    - containerPort: 443
       hostPort: 8443
       listenAddress: "0.0.0.0"
       protocol: TCP
