@@ -1,0 +1,13 @@
+# Helm がチャートを探す場所を指定します (パッケージリポジトリのような役割)
+repositories:
+  - name: cilium
+    url: https://helm.cilium.io
+
+# 各エントリはデプロイする Helm リリースです
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: cilium/cilium
+    version: 1.19.4
+    values:
+      - values/cilium.values.yaml
